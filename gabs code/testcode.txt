@@ -1,0 +1,100 @@
+def BFS(problem):
+    # Create initial node of problem tree holding original board
+    node = Node(problem.initial)
+    # Check if original board is correct and immediately return if valid
+    if problem.goal_test(node.state):
+        return node
+
+    frontier = Queue()
+    frontier.put(node)
+
+    # Loop until all nodes are explored or solution found
+    while (frontier.qsize() != 0):
+
+        node = frontier.get()
+        for child in node.expand(problem):
+            if problem.goal_test(child.state):
+                return child
+
+            frontier.put(child)
+
+    return None
+
+def solve_bfs(board):
+    print ("\nSolving with BFS...")
+    start_time = time.time()
+
+    problem = Problem(board)
+    solution = BFS(problem)
+    elapsed_time = time.time() - start_time
+
+    if solution:
+        print ("Found solution")
+        for row in solution.state:
+            print (row)
+    else:
+        print ("No possible solutions")
+
+    print ("Elapsed time: " + str(elapsed_time))
+	
+https://github.com/C-Abner/VBA-BFS-algorithm/blob/master/BFS.bas
+
+
+;====================================================================
+;VBA-ified code
+
+sub BFS(problem)
+    # Create initial node of problem tree holding original board
+    node = Node(problem.initial)
+    # Check if original board is correct and immediately return if valid
+    if problem.goal_test(node.state):
+        return node
+
+    frontier = Queue()
+    frontier.put(node)
+
+	'https://www.automateexcel.com/vba/row-height-column-width/#Obtain_Column_Width
+	dim iColumnWidth as long
+	dim iRowHeight as long
+	
+    # Loop until all nodes are explored or solution found
+    while (frontier.qsize() != 0)
+
+        node = frontier.get()
+        for child in node.expand(problem)
+            if problem.goal_test(child.state) then
+                return child
+			end if
+            frontier.put(child)
+	wend
+	
+    return None
+
+Sub solve_bfs(board)
+    MsgBox "Solving with BFS..."
+
+    problem = Problem(board)
+    solution = BFS(problem)
+	Dim i As Integer
+	
+	'SOURCE: www.TheSpreadsheetGuru.com/the-code-vault
+	Dim StartTime As Double
+	Dim SecondsElapsed As Double
+	StartTime = Timer
+	
+	'http://codevba.com/excel/for_each_cell_in_range.htm
+    if solution then
+        MsgBox "Found solution"
+        For i = 1 To solution.state.Rows.Count
+            print (row)
+    else
+        MsgBox "No possible solutions"
+	end if
+	
+	'Print the rest of it
+    SecondsElapsed = Round(Timer - StartTime, 2)
+	MsgBox "BFS Sodoku in " & SecondsElapsed & " seconds", vbInformation
+	
+End Sub
+
+
