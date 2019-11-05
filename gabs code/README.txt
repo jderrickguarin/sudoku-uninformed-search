@@ -1,1 +1,1 @@
-the vba'ified section is what you use.
+the vba'ified section in testcode.txt is what you use.

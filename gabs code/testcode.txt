@@ -42,7 +42,15 @@ https://github.com/C-Abner/VBA-BFS-algorithm/blob/master/BFS.bas
 
 ;====================================================================
 ;VBA-ified code
+	Dim queue as Object
+	Set queue = CreateObject("System.Collections.Queue")
 
+	'https://stackoverflow.com/questions/37689847/creating-an-array-from-a-range-in-vba
+	Dim DirArray As Variant
+	DirArray = Range("a1:a5").Value
+
+	'https://excelmacromastery.com/vba-arraylist/
+;=====================================================================
 sub BFS(problem)
     # Create initial node of problem tree holding original board
     node = Node(problem.initial)
