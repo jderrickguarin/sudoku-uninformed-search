@@ -47,7 +47,7 @@ sub BFS(problem)
     # Create initial node of problem tree holding original board
     node = Node(problem.initial)
     # Check if original board is correct and immediately return if valid
-    if problem.goal_test(node.state):
+    if problem.goal_test(node.state)
         return node
 
     frontier = Queue()
@@ -57,8 +57,13 @@ sub BFS(problem)
 	dim iColumnWidth as long
 	dim iRowHeight as long
 	
+	'This works because the rows and column count are equal
+	
+	iColumnWidth = columns("a,b,c,d").ColumnWidth
+	iRowHeight = rows("1,2,3,4").RowHeight
+	
     # Loop until all nodes are explored or solution found
-    while (frontier.qsize() != 0)
+    while (frontier.iColumnWidth() != 0 && frontier.iRowHeight() != 0)
 
         node = frontier.get()
         for child in node.expand(problem)
