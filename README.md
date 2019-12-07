@@ -1,6 +1,6 @@
 # Solving a Sudoku puzzle using Depth-First Search, Breadth-First Search and DFS with Heuristics
 ##### Estoque, Carlo Gabriel; Guarin, Jan Derrick; Villanueva, Raphael Ervin
-*Midterm project for Introduction to Artificial Intelligence where we solve Sudoku using uninformed search strategies.*
+*Midterm & finals project for Introduction to Artificial Intelligence where we solve Sudoku using uninformed search strategies.*
 
 ## The Game of Sudoku
 Sudoku (Japanese: “Su” meaning number + “Doku” meaning single) is a combinatorial number puzzle popularized in magazines and newspapers a few decades back. A typical Sudoku puzzle involves a 9x9 square grid, with each cell of the grid containing another 9 cells. Each section of 9 cells form a block. In total, there are 81 cells in the game, 9 cells contained in 9 blocks. Some cells contain a given number from the set (1,2,...,9). 
@@ -19,9 +19,9 @@ A Breadth-First Search (BFS) is a tree-traversal algorithm making use of a queue
 Besides the two uninformed search strategies, heuristics can also be applied in solving any Sudoku puzzle. In both DFS and BFS implementations, the method of solving the board is raster-scan. Norvig suggests the usage of heursitics to make a more efficient algorithm. He wrote that we have to choose between *variable ordering* and *value ordering* in solving a certain puzzle. Variable ordering refers to which tile should be first solved, while value ordering refers to which number should be placed in a tile first. In the case of our project, we consider variable ordering to solve puzzles more efficiently. More specifically, we utilized a similar concept to that used by Norvig, *minimum remaining values*, which means that we choose a tile with the least number of possible options. This replaces the initial raster-scan method of solving and is applied to the more efficient DFS implementation.
 
 ## PEAS Specification
-For this project, consider a timed rank-2 Sudoku game. Suppose that the agent aims to solve the puzzle (note: only one solution to each puzzle exists). The properties of the agent that will solve this can be grouped into a PEAS Specification. 
+For this project, consider a timed Sudoku game. Suppose that the agent aims to solve the puzzle (note: only one solution to each puzzle exists). The properties of the agent that will solve this can be grouped into a PEAS Specification. 
 - Performance Measure: Satisfaction of One Rule on each row, column and block; Speed, or the shortest time at which the agent finishes the puzzle
-- Environment: Given the rank-2 Sudoku game, the environment is given as a 4x4 grid with 4 blocks containing 4 cells, and some cells - filled with digits chosen from 1 to 9. 
+- Environment: Given the Sudoku game, the environment is given as any N x N grid with n blocks containing n cells, and some cells - filled with digits chosen from 1 to n. 
 - Actuators: String generator to display number that will satisfy the constraints. The agent may also clear the ‘board’.
 - Sensors: A scanner function that will scan rows, columns and blocks to determine the correct number number to input in blank cells 
 
