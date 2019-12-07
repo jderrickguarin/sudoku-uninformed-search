@@ -1,5 +1,0 @@
-https://github.com/tphanco/sample
-https://www.automateexcel.com/vba/row-height-column-width/#Obtain_Column_Width
-http://codevba.com/excel/for_each_cell_in_range.htm
-https://www.excel-easy.com/vba/array.html
-https://stackoverflow.com/questions/12642164/check-if-value-exists-in-column-in-vba
