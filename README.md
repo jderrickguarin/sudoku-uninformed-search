@@ -1,4 +1,4 @@
-# Solving a rank-2 Sudoku puzzle using Backtracking Depth-First Search and Breadth-First Search
+# Solving a Sudoku puzzle using Depth-First Search, Breadth-First Search and DFS with Heuristics
 ##### Estoque, Carlo Gabriel; Guarin, Jan Derrick; Villanueva, Raphael Ervin
 *Midterm project for Introduction to Artificial Intelligence where we solve Sudoku using uninformed search strategies.*
 
@@ -9,11 +9,14 @@ There exists variations of the typical Sudoku game of size 3^2\*3^2, the game de
 A rank-2 Sudoku puzzle
 
 ## Implementing Uninformed Search Strategies in Sudoku
-Uninformed search strategies are algorithms that searches the state space for the goal state by means of a tree-traversing algorithm, without relying on other information. In this project, we are using a Backtracking Depth-First Search (B-DFS) and Breadth-First Search (BFS) to arrive at the solution of an arbitrary rank-2 Sudoku puzzle. The point of this project is not to determine the most efficient solution, but only to show an implementation of uninformed search strategies in a combinatorial puzzle. The puzzle game, along with implementations of the two search strategies, is implemented on VBA and MS Excel.
-##### **Backtracking Depth-First Search**
-A Backtracking Depth-First Search (B-DFS) is similar to the regular Depth-First Search strategy \[ADD LATER]
+Uninformed search strategies are algorithms that searches the state space for the goal state by means of a tree-traversing algorithm, without relying on other information. In this project, we are using a Depth-First Search (DFS) and Breadth-First Search (BFS) to arrive at the solution of an arbitrary Sudoku puzzle. The point of this project is not to determine the most efficient solution, but only to show an implementation of uninformed search strategies in a combinatorial puzzle. The puzzle game, along with implementations of the two search strategies, is implemented on Python.
+Peter Norvig, an AI expert, wrote an [essay](https://norvig.com/sudoku.html "Solving Every Sudoku Puzzle") and a program to explain how to solve any Sudoku puzzle in an efficient manner. Taking cue from the expert himself, we recognize that without using constraint propagation, that is accounting for constraints in a given square, any uninformed search algorithm risks solving any given puzzle in just a few billion years. Thus we made sure to limit the number of children of any node by applying the one-rule constraints in all tiles of a given puzzle.
+##### **Depth-First Search**
+A Depth-First Search (DFS) is a tree-traversal algorithm that makes use a stack data structure to iterate through the nodes and arrive at the goal state. This is utilized in the project by adding viable states to the stack based on all the legal options in a specific square. Each last node in the stack is popped and, as a successor state, is expanded. The cycle repeats until the Sudoku grid is complete. To note, in this case, the grid is solved raster-scan style, meaning from left to right, from top to bottom, which is inefficient.
 ##### **Breadth-First Search**
-This method makes use of horizontal expansions in order to cover all possibilities that may result in the sudoku board. With a queue method of arraying, it ensures that all nodes are addressed, however this algorithm is also time-consuming.
+A Breadth-First Search (BFS) is a tree-traversal algorithm making use of a queue instead of a stack. This method makes use of horizontal expansions in order to cover all possibilities that may result in the Sudoku grid. With a queue method of arraying, it ensures that all nodes are addressed, however this algorithm is also time-consuming and therefore inefficient.
+#### **Utilizing heuristics**
+Besides the two uninformed search strategies, heuristics can also be applied in solving any Sudoku puzzle. In both DFS and BFS implementations, the method of solving the board is raster-scan. Norvig suggests the usage of heursitics to make a more efficient algorithm. He wrote that we have to choose between *variable ordering* and *value ordering* in solving a certain puzzle. Variable ordering refers to which tile should be first solved, while value ordering refers to which number should be placed in a tile first. In the case of our project, we consider variable ordering to solve puzzles more efficiently. More specifically, we utilized a similar concept to that used by Norvig, *minimum remaining values*, which means that we choose a tile with the least number of possible options. This replaces the initial raster-scan method of solving and is applied to the more efficient DFS implementation.
 
 ## PEAS Specification
 For this project, consider a timed rank-2 Sudoku game. Suppose that the agent aims to solve the puzzle (note: only one solution to each puzzle exists). The properties of the agent that will solve this can be grouped into a PEAS Specification. 
@@ -22,20 +25,19 @@ For this project, consider a timed rank-2 Sudoku game. Suppose that the agent ai
 - Actuators: String generator to display number that will satisfy the constraints. The agent may also clear the ‘board’.
 - Sensors: A scanner function that will scan rows, columns and blocks to determine the correct number number to input in blank cells 
 
+## Results
+In general, most puzzles were solved slower using Breadth-First Search. Depth-first search proved to be more efficient in handling a Sudoku puzzle. If a heuristic is added in solving the puzzle, such as DFS with minimum remaining values heuristic, then the puzzle is solved in even a lesser amount of time.
+This project though can still be made better if other factors are used. [Peter Norvig] (https://norvig.com/sudoku.html "Solving Every Sudoku Puzzle") used a dictionary data structure instead of lists in making a Sudoku grid and his solutions to any problem were significantly faster than ours. He also proposes a value ordering heuristic called *least-constraining value*, which chooses first the value that imposes the fewest constraints on peers, and this might even improve the solution time.
+In addition, there are other algorithms that can be used to solve a Sudoku puzzle, some of which might even be faster (e.g. Backtracking DFS).
+
 ## Installation and Operation
-*Note: Make sure to enable the* **Developer** *ribbon in your MS Excel*
-##### To use the Excel file containing the game and the solving algorithms:
-1. Unzip the file containing `sudoku.xlsm`.
-2. Open the `sudoku.xlsm` file in MS Excel. You will see a rank-2 Sudoku grid on the worksheet, along with the buttons: **Create**, **Clear**, **Solve B-DFS**, and **Solve BFS**.
-3. The **Create** button creates a new random puzzle. 
-4. The **Solve B-DFS** button uses Backtracking Depth-First Search to solve the puzzle, while the **Solve BFS** uses Breadth-First Search to solve the puzzle. 
-5. Click the **Clear** button to return the grid to a blank slate. 
-##### To check the source code of the solver:
-1. In the **Developer** ribbon, click **Visual Basic** to open the Visual Basic Editor.
-2. In the left pane, right click on **Module 1** under the workbook titled `sudoku.xlsm`.
-3. Click **View Code**. Use the **(Declarations)** drop-down list box to navigate the code. 
+##### To use the check the process of solving:
+1. Open `sudoku_solver.py` in the console.
+2. You may change the test grids in the code using any text editor.
+3. Use the `DFS_solve`, `BFS_solve` or `HSolve` functions according to which method you want to use in solving a grid.
+4. You may check the code of each algorithm in their respective Python files.
 
 ## References
 https://www.slideshare.net/FernandoJunior52/bdfsdfspaper?fbclid=IwAR07gT0SZ94nOHQILqatoMKqsqyXYuvpHbSrDIxv1iuwgnUuBgqBLzAm-gk
-
+https://norvig.com/sudoku.html
 https://github.com/tphanco/sample/blob/master/BDFS_Sudoku.py 
