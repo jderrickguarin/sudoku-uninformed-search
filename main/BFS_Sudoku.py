@@ -6,8 +6,8 @@ class Problem(object):
 
     def __init__(self, initial):
         self.initial = initial
-        self.type = len(initial) # Defines board type, either 6x6 or 9x9
-        self.height = int(self.type/3) # Defines height of quadrant (2 for 6x6, 3 for 9x9)
+        self.size = len(initial) # Defines board size, either 6x6 or 9x9
+        self.height = int(self.size/3) # Defines height of quadrant (2 for 6x6, 3 for 9x9)
 
     # Return set of valid numbers from values that do not appear in used
     def filter_values(self, values, used):
@@ -21,18 +21,18 @@ class Problem(object):
                     return row, column   
 
     def actions(self, state):
-        number_set = range(1, self.type+1) # Defines set of valid numbers that can be placed on board
+        number_set = range(1, self.size+1) # Defines set of valid numbers that can be placed on board
         in_column = [] # List of valid values in spot's column
         in_block = [] # List of valid values in spot's quadrant
 
-        row,column = self.get_spot(self.type, state) # Get first empty spot on board
+        row,column = self.get_spot(self.size, state) # Get first empty spot on board
 
         # Filter valid values based on row
         in_row = [number for number in state[row] if (number != 0)]
         options = self.filter_values(number_set, in_row)
 
         # Filter valid values based on column
-        for column_index in range(self.type):
+        for column_index in range(self.size):
             if state[column_index][column] != 0:
                 in_column.append(state[column_index][column])
         options = self.filter_values(options, in_column)
@@ -63,26 +63,26 @@ class Problem(object):
         return new_state
 
     # Use sums of each row, column and quadrant to determine validity of board state
-    def goal_test(self, state):
+    def check_legal(self, state):
 
         # Expected sum of each row, column or quadrant.
-        total = sum(range(1, self.type+1))
+        total = sum(range(1, self.size+1))
 
         # Check rows and columns and return false if total is invalid
-        for row in range(self.type):
-            if (len(state[row]) != self.type) or (sum(state[row]) != total):
+        for row in range(self.size):
+            if (len(state[row]) != self.size) or (sum(state[row]) != total):
                 return False
 
             column_total = 0
-            for column in range(self.type):
+            for column in range(self.size):
                 column_total += state[column][row]
 
             if (column_total != total):
                 return False
 
         # Check quadrants and return false if total is invalid
-        for column in range(0,self.type,3):
-            for row in range(0,self.type,self.height):
+        for column in range(0,self.size,3):
+            for row in range(0,self.size,self.height):
 
                 block_total = 0
                 for block_row in range(0,self.height):
@@ -114,7 +114,7 @@ def BFS(problem):
     # Create initial node of problem tree holding original board
     node = Node(problem.initial)
     # Check if original board is correct and immediately return if valid
-    if problem.goal_test(node.state):
+    if problem.check_legal(node.state):
         return node
 
     frontier = Queue()
@@ -125,14 +125,14 @@ def BFS(problem):
 
         node = frontier.get()
         for child in node.expand(problem):
-            if problem.goal_test(child.state):
+            if problem.check_legal(child.state):
                 return child
 
             frontier.put(child)
 
     return None
 
-def solve_bfs(board):
+def BFS_solve(board):
     print ("\nSolving with BFS...")
     start_time = time.time()
 
@@ -147,4 +147,4 @@ def solve_bfs(board):
     else:
         print ("No possible solutions")
 
-    print ("Elapsed time: " + str(elapsed_time))
+    print ("Elapsed time: " + str(elapsed_time) + " seconds")

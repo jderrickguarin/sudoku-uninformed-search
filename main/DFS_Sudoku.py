@@ -5,28 +5,28 @@ class Problem(object):
 
     def __init__(self, initial):
         self.initial = initial
-        self.type = len(initial) # Defines board type, either 6x6 or 9x9
-        self.height = int(self.type/3) # Defines height of quadrant (2 for 6x6, 3 for 9x9)
+        self.size = len(initial) # Defines board size, either 6x6 or 9x9
+        self.height = int(self.size/3) # Defines height of quadrant (2 for 6x6, 3 for 9x9)
 
-    def goal_test(self, state):
+    def check_legal(self, state):
         # Expected sum of each row, column or quadrant.
-        total = sum(range(1, self.type+1))
+        total = sum(range(1, self.size+1))
 
         # Check rows and columns and return false if total is invalid
-        for row in range(self.type):
-            if (len(state[row]) != self.type) or (sum(state[row]) != total):
+        for row in range(self.size):
+            if (len(state[row]) != self.size) or (sum(state[row]) != total):
                 return False
 
             column_total = 0
-            for column in range(self.type):
+            for column in range(self.size):
                 column_total += state[column][row]
 
             if (column_total != total):
                 return False
 
         # Check quadrants and return false if total is invalid
-        for column in range(0,self.type,3):
-            for row in range(0,self.type,self.height):
+        for column in range(0,self.size,3):
+            for row in range(0,self.size,self.height):
 
                 block_total = 0
                 for block_row in range(0,self.height):
@@ -51,7 +51,7 @@ class Problem(object):
 
     # Filter valid values based on row
     def filter_row(self, state, row):
-        number_set = range(1, self.type+1) # Defines set of valid numbers that can be placed on board
+        number_set = range(1, self.size+1) # Defines set of valid numbers that can be placed on board
         in_row = [number for number in state[row] if (number != 0)]
         options = self.filter_values(number_set, in_row)
         return options
@@ -59,7 +59,7 @@ class Problem(object):
     # Filter valid values based on column
     def filter_col(self, options, state, column):
         in_column = [] # List of valid values in spot's column
-        for column_index in range(self.type):
+        for column_index in range(self.size):
             if state[column_index][column] != 0:
                 in_column.append(state[column_index][column])
         options = self.filter_values(options, in_column)
@@ -78,7 +78,7 @@ class Problem(object):
         return options    
 
     def actions(self, state):
-        row,column = self.get_spot(self.type, state) # Get first empty spot on board
+        row,column = self.get_spot(self.size, state) # Get first empty spot on board
 
         # Remove spot's invalid options
         options = self.filter_row(state, row)
@@ -102,7 +102,7 @@ class Node:
 
 def DFS(problem):
     start = Node(problem.initial)
-    if problem.goal_test(start.state):
+    if problem.check_legal(start.state):
         return start.state
 
     stack = []
@@ -110,7 +110,7 @@ def DFS(problem):
 
     while stack: 
         node = stack.pop() # Pops the last node, tests legality, then expands the same popped node
-        if problem.goal_test(node.state):
+        if problem.check_legal(node.state):
             return node.state
         stack.extend(node.expand(problem)) # Add viable states onto the stack...
         # ...by using expand method of Node class, taking in problem parameter of this function to
@@ -119,7 +119,7 @@ def DFS(problem):
 
     return None
 
-def solve_dfs(board):
+def DFS_solve(board):
     print ("\nSolving with DFS...")
     start_time = time.time()
     problem = Problem(board)
@@ -133,4 +133,4 @@ def solve_dfs(board):
     else:
         print ("No possible solutions")
 
-    print ("Elapsed time: " + str(elapsed_time))
+    print ("Elapsed time: " + str(elapsed_time) + " seconds")

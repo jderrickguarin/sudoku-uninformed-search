@@ -5,37 +5,33 @@ class Problem(object):
 
     def __init__(self, initial):
         self.initial = initial
-        self.type = len(initial) # Defines board type, either 6x6 or 9x9
-        self.height = int(self.type/3) # Defines height of quadrant (2 for 6x6, 3 for 9x9)
+        self.type = len(initial) # Size of grid
+        self.height = int(self.type/3) # Size of a quadrant
 
     def goal_test(self, state):
-        # Expected sum of each row, column or quadrant.
-        total = sum(range(1, self.type+1))
+        # Maximum sum of row, column or quadrant
+        exp_sum = sum(range(1, self.type+1))
 
-        # Check rows and columns and return false if total is invalid
+        # Returns false if expected sum of row or column are invalid
         for row in range(self.type):
-            if (len(state[row]) != self.type) or (sum(state[row]) != total):
+            if (len(state[row]) != self.type) or (sum(state[row]) != exp_sum):
                 return False
-
-            column_total = 0
+            column_sum = 0
             for column in range(self.type):
-                column_total += state[column][row]
-
-            if (column_total != total):
+                column_sum += state[column][row]
+            if (column_sum != exp_sum):
                 return False
 
-        # Check quadrants and return false if total is invalid
+        # Returns false if expected sum of a quadrant is invalid
         for column in range(0,self.type,3):
             for row in range(0,self.type,self.height):
-
-                block_total = 0
+                block_sum = 0
                 for block_row in range(0,self.height):
                     for block_column in range(0,3):
-                        block_total += state[row + block_row][column + block_column]
+                        block_sum += state[row + block_row][column + block_column]
 
-                if (block_total != total):
+                if (block_sum != exp_sum):
                     return False
-
         return True
 
     # Return set of valid numbers from values that do not appear in used
@@ -93,19 +89,19 @@ class Problem(object):
     def actions(self, state):
         row,column = self.get_spot(self.type, state) # Get first empty spot on board
 
-        # Remove spot's invalid options
+        # Remove a square's invalid values
         options = self.filter_row(state, row)
         options = self.filter_col(options, state, column)
         options = self.filter_quad(options, state, row, column)
 
-        # Yield a state for each valid option
+        # Return a state for each valid option (yields multiple states)
         for number in options:
             new_state = copy.deepcopy(state)
             new_state[row][column] = number
             yield new_state
 
 class Node:
-
+    
     def __init__(self, state):
         self.state = state
 
@@ -128,7 +124,7 @@ def DFS(problem):
         stack.extend(node.expand(problem)) 
     return None
 
-def HSolve(board):
+def H_Solve(board):
     print ("\nSolving with DFS and heuristics...")
     start_time = time.time()
     problem = Problem(board)
@@ -142,4 +138,4 @@ def HSolve(board):
     else:
         print ("No possible solutions")
 
-    print ("Elapsed time: " + str(elapsed_time))
+    print ("Elapsed time: " + str(elapsed_time) + " seconds")
