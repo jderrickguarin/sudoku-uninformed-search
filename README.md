@@ -1,6 +1,6 @@
 # Solving a Sudoku puzzle using Depth-First Search, Breadth-First Search and DFS with Heuristics
 ##### Estoque, Carlo Gabriel; Guarin, Jan Derrick; Villanueva, Raphael Ervin
-*Midterm & finals project for Introduction to Artificial Intelligence where we solve Sudoku using uninformed search strategies.*
+*Midterms & finals project for Introduction to Artificial Intelligence where we solve Sudoku using uninformed search strategies.*
 
 ## The Game of Sudoku
 Sudoku (Japanese: “Su” meaning number + “Doku” meaning single) is a combinatorial number puzzle popularized in magazines and newspapers a few decades back. A typical Sudoku puzzle involves a 9x9 square grid, with each cell of the grid containing another 9 cells. Each section of 9 cells form a block. In total, there are 81 cells in the game, 9 cells contained in 9 blocks. Some cells contain a given number from the set (1,2,...,9). 
@@ -26,7 +26,7 @@ For this project, consider a timed Sudoku game. Suppose that the agent aims to s
 - Sensors: A scanner function that will scan rows, columns and blocks to determine the correct number number to input in blank cells 
 
 ## Results
-In general, most puzzles were solved slower using Breadth-First Search. Depth-first search proved to be more efficient in handling a Sudoku puzzle. If a heuristic is added in solving the puzzle, such as DFS with minimum remaining values heuristic, then the puzzle is solved in even a lesser amount of time.
+In general, most puzzles were solved slower using Breadth-First Search. Depth-first Search proved to be more efficient in handling a Sudoku puzzle. If a heuristic is added in solving the puzzle, such as DFS with minimum remaining values heuristic, then the puzzle is solved in even a lesser amount of time.
 This project though can still be made better if other factors are used. [Peter Norvig](https://norvig.com/sudoku.html "Solving Every Sudoku Puzzle") used a dictionary data structure instead of lists in making a Sudoku grid and his solutions to any problem were significantly faster than ours. He also proposes a value ordering heuristic called *least-constraining value*, which chooses first the value that imposes the fewest constraints on peers, and this might even improve the solution time.
 In addition, there are other algorithms that can be used to solve a Sudoku puzzle, some of which might even be faster (e.g. Backtracking DFS).
 
