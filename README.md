@@ -6,10 +6,12 @@
 Sudoku (Japanese: “Su” meaning number + “Doku” meaning single) is a combinatorial number puzzle popularized in magazines and newspapers a few decades back. A typical Sudoku puzzle involves a 9x9 square grid, with each cell of the grid containing another 9 cells. Each section of 9 cells form a block. In total, there are 81 cells in the game, 9 cells contained in 9 blocks. Some cells contain a given number from the set (1,2,...,9).  
 
 To win the game, the player must fill up all 81 cells with number using numbers from the set, where each row, column of block contains each number exactly once. Such constraint, called the ”One Rule”, makes the grid setup with pre-filled cells an interesting puzzle. 
-There exists variations of the typical Sudoku game of size 3^2\*3^2, the game described above. A game of such size is defined to be a Sudoku game of rank-3. Another possible form of the Sudoku game is a rank-2 Sudoku game of size 2^2\*2^2. This is comprised of a 4 cells contained in 4 blocks making up a 16-celled grid. A rank-2 Sudoku puzzle:  
+There exists variations of the typical Sudoku game of size 3^2\*3^2, the game described above. A game of such size is defined to be a Sudoku game of rank-3. Another possible form of the Sudoku game is a rank-2 Sudoku game of size 2^2\*2^2. This is comprised of a 4 cells contained in 4 blocks making up a 16-celled grid.  
+
+<p align="center"> A rank-2 Sudoku puzzle:  </p>
 
 <p align="center">
-  <img width="460" height="300" src="https://stemmiami.files.wordpress.com/2015/11/sudokuk4x4.jpg">
+  <img width="180" height="180" src="https://stemmiami.files.wordpress.com/2015/11/sudokuk4x4.jpg">
 </p>
 
 ## Implementing Uninformed Search Strategies in Sudoku
