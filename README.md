@@ -30,8 +30,8 @@ In both DFS and BFS implementations, the method of solving the board is raster-s
 ## PEAS Specification
 For this project, consider a timed Sudoku game. Suppose that the agent aims to solve the puzzle (note: only one solution to each puzzle exists). The properties of the agent that will solve this can be grouped into a PEAS Specification. 
 - Performance Measure: Satisfaction of One Rule on each row, column and block; Speed, or the shortest time at which the agent finishes the puzzle
-- Environment: Given the Sudoku game, the environment is given as any N x N grid with n blocks containing n cells, and some cells - filled with digits chosen from 1 to n. 
-- Actuators: String generator to display number that will satisfy the constraints. The agent may also clear the ‘board’.
+- Environment: Given the Sudoku game, the environment is given as any N x N grid with n blocks containing n cells, and some cells filled with digits chosen from 1 to n. 
+- Actuators: String generator to display number that will satisfy the constraints.
 - Sensors: A scanner function that will scan rows, columns and blocks to determine the correct number number to input in blank cells 
 
 ## Results
