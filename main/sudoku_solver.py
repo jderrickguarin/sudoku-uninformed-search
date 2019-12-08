@@ -167,7 +167,28 @@ BFS_solve(grid)
 DFS_solve(grid)
 H_Solve(grid)
 
-"""print ("\n\nTesting on hard 9x9 grid")
+"""
+print("\n\nTesting on a 9x9 letter puzzle")
+grid = [['D','A','.','.','.','G','.','.','E'],
+        ['.','.','C','B','.','I','.','.','H'],
+        ['.','.','H','.','E','A','I','D','.'],
+        ['F','C','E','.','.','.','.','G','.'],
+        ['.','.','B','.','.','.','A','.','.'],
+        ['.','D','.','.','.','.','H','E','B'],
+        ['.','I','D','G','C','.','F','.','.'],
+        ['C','.','.','D','.','F','B','.','.'],
+        ['H','.','.','I','.','.','.','C','D']]
+
+print ("Problem:")
+for row in grid:
+      print (row)
+
+BFS_solve(grid)
+DFS_solve(grid)
+H_Solve(grid)  
+"""
+
+"""print ("\n\nTesting on super ultra hard 9x9 grid")
 grid = [[0,0,0,0,0,5,0,8,0],
       [0,0,0,6,0,1,0,4,3],
       [0,0,0,0,0,0,0,0,0],
