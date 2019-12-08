@@ -6,8 +6,8 @@ class Problem(object):
 
     def __init__(self, initial):
         self.initial = initial
-        self.size = len(initial) # Defines board size, either 6x6 or 9x9
-        self.height = int(self.size/3) # Defines height of quadrant (2 for 6x6, 3 for 9x9)
+        self.size = len(initial) # Size of a grid
+        self.height = int(self.size/3) # Size of a quadrant
 
     # Return set of valid numbers from values that do not appear in used
     def filter_values(self, values, used):

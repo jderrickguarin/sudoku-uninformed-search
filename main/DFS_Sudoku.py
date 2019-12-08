@@ -5,8 +5,8 @@ class Problem(object):
 
     def __init__(self, initial):
         self.initial = initial
-        self.size = len(initial) # Defines board size, either 6x6 or 9x9
-        self.height = int(self.size/3) # Defines height of quadrant (2 for 6x6, 3 for 9x9)
+        self.size = len(initial) # Size of grid
+        self.height = int(self.size/3) # Size of a quadrant
 
     def check_legal(self, state):
         # Expected sum of each row, column or quadrant.
@@ -58,7 +58,7 @@ class Problem(object):
 
     # Filter valid values based on column
     def filter_col(self, options, state, column):
-        in_column = [] # List of valid values in spot's column
+        in_column = []
         for column_index in range(self.size):
             if state[column_index][column] != 0:
                 in_column.append(state[column_index][column])
@@ -80,14 +80,14 @@ class Problem(object):
     def actions(self, state):
         row,column = self.get_spot(self.size, state) # Get first empty spot on board
 
-        # Remove spot's invalid options
+        # Remove a square's invalid values
         options = self.filter_row(state, row)
         options = self.filter_col(options, state, column)
         options = self.filter_quad(options, state, row, column)
 
-        # Yield a state for each valid option
+        # Return a state for each valid option (yields multiple states)
         for number in options:
-            new_state = copy.deepcopy(state)
+            new_state = copy.deepcopy(state) # Norvig used only shallow copy to copy states; deepcopy works like a perfect clone of the original
             new_state[row][column] = number
             yield new_state
 

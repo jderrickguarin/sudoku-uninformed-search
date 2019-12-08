@@ -5,26 +5,26 @@ class Problem(object):
 
     def __init__(self, initial):
         self.initial = initial
-        self.type = len(initial) # Size of grid
-        self.height = int(self.type/3) # Size of a quadrant
+        self.size = len(initial) # Size of grid
+        self.height = int(self.size/3) # Size of a quadrant
 
-    def goal_test(self, state):
+    def check_legal(self, state):
         # Maximum sum of row, column or quadrant
-        exp_sum = sum(range(1, self.type+1))
+        exp_sum = sum(range(1, self.size+1))
 
         # Returns false if expected sum of row or column are invalid
-        for row in range(self.type):
-            if (len(state[row]) != self.type) or (sum(state[row]) != exp_sum):
+        for row in range(self.size):
+            if (len(state[row]) != self.size) or (sum(state[row]) != exp_sum):
                 return False
             column_sum = 0
-            for column in range(self.type):
+            for column in range(self.size):
                 column_sum += state[column][row]
             if (column_sum != exp_sum):
                 return False
 
         # Returns false if expected sum of a quadrant is invalid
-        for column in range(0,self.type,3):
-            for row in range(0,self.type,self.height):
+        for column in range(0,self.size,3):
+            for row in range(0,self.size,self.height):
                 block_sum = 0
                 for block_row in range(0,self.height):
                     for block_column in range(0,3):
@@ -60,15 +60,15 @@ class Problem(object):
 
     # Filter valid values based on row
     def filter_row(self, state, row):
-        number_set = range(1, self.type+1) # Defines set of valid numbers that can be placed on board
+        number_set = range(1, self.size+1) # Defines set of valid numbers that can be placed on board
         in_row = [number for number in state[row] if (number != 0)]
         options = self.filter_values(number_set, in_row)
         return options
 
     # Filter valid values based on column
     def filter_col(self, options, state, column):
-        in_column = [] # List of valid values in spot's column
-        for column_index in range(self.type):
+        in_column = []
+        for column_index in range(self.size):
             if state[column_index][column] != 0:
                 in_column.append(state[column_index][column])
         options = self.filter_values(options, in_column)
@@ -87,7 +87,7 @@ class Problem(object):
         return options    
 
     def actions(self, state):
-        row,column = self.get_spot(self.type, state) # Get first empty spot on board
+        row,column = self.get_spot(self.size, state) # Get first empty spot on board
 
         # Remove a square's invalid values
         options = self.filter_row(state, row)
@@ -96,7 +96,7 @@ class Problem(object):
 
         # Return a state for each valid option (yields multiple states)
         for number in options:
-            new_state = copy.deepcopy(state)
+            new_state = copy.deepcopy(state) # Norvig used only shallow copy to copy states; deepcopy works like a perfect clone of the original
             new_state[row][column] = number
             yield new_state
 
@@ -111,15 +111,15 @@ class Node:
 
 def DFS(problem):
     start = Node(problem.initial)
-    if problem.goal_test(start.state):
+    if problem.check_legal(start.state):
         return start.state
 
     stack = []
-    stack.append(start) # Place initial node onto the stack
+    stack.append(start) # Places the root node on the stack
 
     while stack: 
         node = stack.pop() # Pops the last node, tests legality, then expands the same popped node
-        if problem.goal_test(node.state):
+        if problem.check_legal(node.state):
             return node.state
         stack.extend(node.expand(problem)) 
     return None
