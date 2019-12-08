@@ -7,6 +7,13 @@ def get_key(dictionary, val):
   
     return "Error: key doesn't exist"
 
+def get_val(dictionary, k):
+    for key, value in dictionary.items():
+        if k == key:
+            return value
+
+    return "Error: value doesn't exist"
+
 def dots_spaces(lettergrid):
     for row in range(len(lettergrid)):
         for column in range(len(lettergrid)):
@@ -26,8 +33,7 @@ def to_numbers(lettergrid):
     elif dots_spaces(lettergrid) == False:
         alphanumDict[0] = ' '
 
-    numbergrid = [[] for new_list in range(len(lettergrid))]
-    # numbergrid = []
+    numbergrid = [[] for new_list in range(len(lettergrid))]    
     blanklist = []
     for row in range(len(lettergrid)):
         for column in range(len(lettergrid)):
@@ -36,7 +42,10 @@ def to_numbers(lettergrid):
         blanklist.clear()
     return numbergrid
 
-sample = [['D','A','.','.','.','G','.','.','E'],
+#def to_letters(numbergrid):
+    
+
+grid = [['D','A','.','.','.','G','.','.','E'],
         ['.','.','C','B','.','I','.','.','H'],
         ['.','.','H','.','E','A','I','D','.'],
         ['F','C','E','.','.','.','.','G','.'],
@@ -46,4 +55,4 @@ sample = [['D','A','.','.','.','G','.','.','E'],
         ['C','.','.','D','.','F','B','.','.'],
         ['H','.','.','I','.','.','.','C','D']]
 
-print(to_numbers(sample))
+print(to_numbers(grid))
