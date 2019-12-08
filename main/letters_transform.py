@@ -22,6 +22,14 @@ def dots_spaces(lettergrid):
             elif lettergrid[row][column] == ' ':
                 return False
 
+def check_if_letters(grid):
+    for row in range(len(grid)):
+        for column in range(len(grid)):
+            if isinstance(grid[row][column],str):
+                return True 
+            #else:
+                #return False
+
 def to_numbers(lettergrid):
 
     gridSize = len(lettergrid) + 1
@@ -71,3 +79,4 @@ grid = [['D','A','.','.','.','G','.','.','E'],
 
 print(to_numbers(grid))
 print(to_letters(grid))
+print(check_if_letters(grid))

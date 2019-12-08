@@ -1,5 +1,6 @@
 import copy
 import time
+from letters_transform import to_letters, to_numbers, check_if_letters
 
 class Problem(object):
 
