@@ -1,6 +1,7 @@
 from queue import Queue
 import copy
 import time
+from letters_transform import to_letters, to_numbers, check_if_letters
 
 class Problem(object):
 
@@ -134,6 +135,11 @@ def BFS(problem):
 
 def BFS_solve(board):
     print ("\nSolving with BFS...")
+    letters = False
+    if check_if_letters(board): # Checks of the board contains letters instead of numbers
+        board = to_numbers(board) # Transforms letter puzzles to numeric puzzles
+        letters = True
+
     start_time = time.time()
 
     problem = Problem(board)
@@ -141,6 +147,8 @@ def BFS_solve(board):
     elapsed_time = time.time() - start_time
 
     if solution:
+        if letters:
+            solution.state = to_letters(solution.state) # Transforms back numeric puzzles to original letter puzzle type of true
         print ("Found solution")
         for row in solution.state:
             print (row)

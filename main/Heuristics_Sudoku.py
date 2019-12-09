@@ -127,12 +127,19 @@ def DFS(problem):
 
 def H_Solve(board):
     print ("\nSolving with DFS and heuristics...")
+    letters = False
+    if check_if_letters(board): # Checks of the board contains letters instead of numbers
+        board = to_numbers(board) # Transforms letter puzzles to numeric puzzles
+        letters = True
+
     start_time = time.time()
     problem = Problem(board)
     solution = DFS(problem)
     elapsed_time = time.time() - start_time
 
     if solution:
+        if letters:
+            solution = to_letters(solution) # Transforms back numeric puzzles to original letter puzzle type of true
         print ("Found solution")
         for row in solution:
             print (row)

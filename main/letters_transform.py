@@ -32,19 +32,19 @@ def check_if_letters(grid):
 
 def to_numbers(lettergrid):
 
-    gridSize = len(lettergrid) + 1
-    numKeys = [num for num in range(1,gridSize)]
-    letterValues = list(map(chr, range(ord('A'), ord('A')+gridSize)))
+    gridSize = len(lettergrid)
+    numKeys = [num for num in range(1,gridSize+1)]
+    letterValues = list(map(chr, range(ord('A'), ord('A')+gridSize+1)))
     alphanumDict = dict(zip(numKeys, letterValues))
     if dots_spaces(lettergrid) == True:
         alphanumDict[0] = '.'
     elif dots_spaces(lettergrid) == False:
         alphanumDict[0] = ' '
 
-    numbergrid = [[] for new_list in range(len(lettergrid))]    
+    numbergrid = [[] for new_list in range(gridSize)]    
     blanklist = []
-    for row in range(len(lettergrid)):
-        for column in range(len(lettergrid)):
+    for row in range(gridSize):
+        for column in range(gridSize):
             blanklist.append(get_key(alphanumDict, lettergrid[row][column]))
         numbergrid[row].extend(blanklist)
         blanklist.clear()
@@ -52,31 +52,18 @@ def to_numbers(lettergrid):
 
 def to_letters(numbergrid):
     
-    gridSize = len(numbergrid) + 1
-    numKeys = [num for num in range(1,gridSize)]
-    letterValues = list(map(chr, range(ord('A'), ord('A')+gridSize)))
+    gridSize = len(numbergrid)
+    numKeys = [num for num in range(1,gridSize+1)]
+    letterValues = list(map(chr, range(ord('A'), ord('A')+gridSize+1)))
     alphanumDict = dict(zip(numKeys, letterValues))
     alphanumDict[0] = '.'
 
-    lettergrid = [[] for new_list in range(len(numbergrid))]
+    lettergrid = [[] for new_list in range(gridSize)]
     blanklist = []
-    for row in range(len(numbergrid)):
-        for column in range(len(numbergrid)):
-            blanklist.append(get_key(alphanumDict, numbergrid[row][column]))
+    for row in range(gridSize):
+        for column in range(gridSize):
+            blanklist.append(get_val(alphanumDict, numbergrid[row][column]))
         lettergrid[row].extend(blanklist)
         blanklist.clear()
     return lettergrid
 
-grid = [['D','A','.','.','.','G','.','.','E'],
-        ['.','.','C','B','.','I','.','.','H'],
-        ['.','.','H','.','E','A','I','D','.'],
-        ['F','C','E','.','.','.','.','G','.'],
-        ['.','.','B','.','.','.','A','.','.'],
-        ['.','D','.','.','.','.','H','E','B'],
-        ['.','I','D','G','C','.','F','.','.'],
-        ['C','.','.','D','.','F','B','.','.'],
-        ['H','.','.','I','.','.','.','C','D']]
-
-print(to_numbers(grid))
-print(to_letters(grid))
-print(check_if_letters(grid))
